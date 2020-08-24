@@ -32,34 +32,19 @@ public class BetterPlacement {
     private static BlockPos lastTargetPos;
     private static Direction lastTargetSide;
 
-    // todo: replace with at
-    private static final Field _rightClickDelayTimer = ObfuscationReflectionHelper.findField(Minecraft.class, "field_71467_ac");
-
-    private static final MethodHandle getDelayTimer, setDelayTimer;
-    static {
-        try {
-            MethodHandles.Lookup lookup = MethodHandles.lookup();
-            getDelayTimer = lookup.unreflectGetter(_rightClickDelayTimer);
-            setDelayTimer = lookup.unreflectSetter(_rightClickDelayTimer);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    //
-
     @SubscribeEvent
-    public static void onClientTick(TickEvent.ClientTickEvent event) throws Throwable {
+    public static void onClientTick(TickEvent.ClientTickEvent event) {
         if (event.phase == TickEvent.Phase.START /*&& (!Configs.creativeOnly || Minecraft.getMinecraft().player.isCreative())*/) {
-            int timer = (int) getDelayTimer.invoke(Minecraft.getInstance());
+            int timer = Minecraft.getInstance().rightClickDelayTimer;
             RayTraceResult hover = Minecraft.getInstance().objectMouseOver;
             if (hover != null && hover.getType() == Type.BLOCK) {
                 BlockRayTraceResult hit = (BlockRayTraceResult) hover;
                 Direction face = hit.getFace();
                 BlockPos pos = hit.getPos();
                 if (timer > 0 && !pos.equals(lastTargetPos) && (lastTargetPos == null || !pos.equals(lastTargetPos.offset(lastTargetSide)))) {
-                    setDelayTimer.invoke(Minecraft.getInstance(), 0);
+                    Minecraft.getInstance().rightClickDelayTimer = 0;
                 } /*else if (Configs.forceNewLoc && timer == 0 && pos.equals(lastTargetPos) && hit.getFace() == lastTargetSide) {
-                    setDelayTimer.invoke(Minecraft.getInstance(), 4);
+                    Minecraft.getInstance().rightClickDelayTimer = 4;
                 } */
                 lastTargetPos = pos.toImmutable();
                 lastTargetSide = face;
