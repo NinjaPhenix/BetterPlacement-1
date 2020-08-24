@@ -1,46 +1,48 @@
 package ninjaphenix.betterplacement;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.util.Direction;
+import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.RayTraceResult.Type;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraft.util.math.Direction;
+import ninjaphenix.betterplacement.config.JanksonConfigParser;
+import org.apache.logging.log4j.MarkerManager;
 
-@Mod(value = BetterPlacement.MOD_ID)
-@EventBusSubscriber(value = Dist.CLIENT, bus = EventBusSubscriber.Bus.FORGE)
-public class BetterPlacement {
+public class BetterPlacement implements ClientModInitializer {
+
+    public static final BetterPlacement INSTANCE = new BetterPlacement();
+    private BetterPlacement() {}
 
     public static final String MOD_ID = "ninjaphenix_betterplacement";
-    private static BlockPos lastTargetPos;
-    private static Direction lastTargetSide;
+    private BlockPos lastTargetPos;
+    private Direction lastTargetSide;
+    private Config _config;
 
-    public BetterPlacement() {
-        Configs.register();
-    }
-
-    @SubscribeEvent
-    public static void onClientTick(TickEvent.ClientTickEvent event) {
-        if (event.phase == TickEvent.Phase.START && (!Configs.CLIENT.creativeOnly.get() || Minecraft.getInstance().player.isCreative())) {
-            int timer = Minecraft.getInstance().rightClickDelayTimer;
-            RayTraceResult hover = Minecraft.getInstance().objectMouseOver;
-            if (hover != null && hover.getType() == Type.BLOCK) {
-                BlockRayTraceResult hit = (BlockRayTraceResult) hover;
-                Direction face = hit.getFace();
-                BlockPos pos = hit.getPos();
+    public void onClientTick(MinecraftClient client)
+    {
+        if(!_config.creativeOnly || client.player.isCreative()) {
+            int timer = client.itemUseCooldown;
+            HitResult hover = client.crosshairTarget;
+            if(hover != null && hover.getType() == HitResult.Type.BLOCK) {
+                BlockHitResult hit = (BlockHitResult) hover;
+                Direction side = hit.getSide();
+                BlockPos pos = hit.getBlockPos();
                 if (timer > 0 && !pos.equals(lastTargetPos) && (lastTargetPos == null || !pos.equals(lastTargetPos.offset(lastTargetSide)))) {
-                    Minecraft.getInstance().rightClickDelayTimer = 0;
-                } else if (Configs.CLIENT.forceNewLoc.get() && timer == 0 && pos.equals(lastTargetPos) && hit.getFace() == lastTargetSide) {
-                    Minecraft.getInstance().rightClickDelayTimer = 4;
+                    client.itemUseCooldown = 0;
+                } else if (_config.forceNewLoc && timer == 0 && pos.equals(lastTargetPos) && side == lastTargetSide) {
+                    client.itemUseCooldown = 4;
                 }
                 lastTargetPos = pos.toImmutable();
-                lastTargetSide = face;
+                lastTargetSide = side;
             }
         }
+    }
+
+    @Override
+    public void onInitializeClient() {
+        _config = new JanksonConfigParser().load(Config.class, Config::new,
+                FabricLoader.getInstance().getConfigDir().resolve(MOD_ID+".json"), new MarkerManager.Log4jMarker(MOD_ID));
     }
 }

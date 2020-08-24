@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "ninjaphenix.betterplacement.mixins",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+  ],
+  "client": [
+    "ClientTick"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

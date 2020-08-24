@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "${mod_id}",
+  "version": "${mod_version}",
+
+  "name": "${mod_name}",
+  "description": "Syncs block placement to cursor movement, allowing easier and faster building.",
+  "authors": [
+    "tterrag1098",
+	"NinjaPhenix"
+  ],
+  "contact": {
+    "homepage": "https://link_to_curseforge_page.fakeurlextensionsoitfails",
+    "sources": "https://github.com/NinjaPhenix/BetterPlacement",
+	"issues": "https://github.com/NinjaPhenix/BetterPlacement/issues"
+  },
+  "license": "MPL-2.0",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "ninjaphenix.betterplacement.BetterPlacement::INSTANCE"
+    ]
+  },
+  "mixins": [
+    "ninjaphenix_betterplacement.mixins.json"
+  ],
+  "accessWidener": "ninjaphenix_betterplacement.accesswidener",
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "minecraft": ">=${minecraft_version}"
+  }
+}
