@@ -17,18 +17,16 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 public class BetterPlacement {
 
     public static final String MOD_ID = "ninjaphenix_betterplacement";
-
-    //@EventHandler
-    //public void preInit(FMLPreInitializationEvent event) {
-    //    Configs.load(event.getSuggestedConfigurationFile());
-    //}
-
     private static BlockPos lastTargetPos;
     private static Direction lastTargetSide;
 
+    public BetterPlacement() {
+        Configs.register();
+    }
+
     @SubscribeEvent
     public static void onClientTick(TickEvent.ClientTickEvent event) {
-        if (event.phase == TickEvent.Phase.START /*&& (!Configs.creativeOnly || Minecraft.getMinecraft().player.isCreative())*/) {
+        if (event.phase == TickEvent.Phase.START && (!Configs.CLIENT.creativeOnly.get() || Minecraft.getInstance().player.isCreative())) {
             int timer = Minecraft.getInstance().rightClickDelayTimer;
             RayTraceResult hover = Minecraft.getInstance().objectMouseOver;
             if (hover != null && hover.getType() == Type.BLOCK) {
@@ -37,9 +35,9 @@ public class BetterPlacement {
                 BlockPos pos = hit.getPos();
                 if (timer > 0 && !pos.equals(lastTargetPos) && (lastTargetPos == null || !pos.equals(lastTargetPos.offset(lastTargetSide)))) {
                     Minecraft.getInstance().rightClickDelayTimer = 0;
-                } /*else if (Configs.forceNewLoc && timer == 0 && pos.equals(lastTargetPos) && hit.getFace() == lastTargetSide) {
+                } else if (Configs.CLIENT.forceNewLoc.get() && timer == 0 && pos.equals(lastTargetPos) && hit.getFace() == lastTargetSide) {
                     Minecraft.getInstance().rightClickDelayTimer = 4;
-                } */
+                }
                 lastTargetPos = pos.toImmutable();
                 lastTargetSide = face;
             }
