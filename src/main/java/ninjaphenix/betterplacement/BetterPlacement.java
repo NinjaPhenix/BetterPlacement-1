@@ -1,4 +1,4 @@
-package com.tterrag.betterplacement;
+package ninjaphenix.betterplacement;
 
 
 import java.lang.invoke.MethodHandle;
