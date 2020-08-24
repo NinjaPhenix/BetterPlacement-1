@@ -82,7 +82,8 @@ processResources {
             "mod_name": mod_name,
             "mod_version": mod_version,
             "minecraft_version": minecraft_version,
-			"forge_version": dep_forge_version
+			"forge_version": dep_forge_version,
+            "loader_version": loader_version
     )
     from(sourceSets.main.resources.srcDirs) {
         include 'META-INF/mods.toml'
@@ -91,7 +92,8 @@ processResources {
                 "mod_name": mod_name,
                 "mod_version": mod_version,
                 "minecraft_version": minecraft_version,
-				"forge_version": dep_forge_version
+				"forge_version": dep_forge_version,
+                "loader_version": loader_version
         )
     }
     from(sourceSets.main.resources.srcDirs) {
