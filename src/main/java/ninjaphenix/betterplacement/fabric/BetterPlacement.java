@@ -25,11 +25,13 @@ public class BetterPlacement implements ClientModInitializer {
     private static final Logger LOGGER = LogManager.getLogger(MOD_ID);
     private BlockPos lastTargetPos;
     private Direction lastTargetSide;
-    private Properties _config;
+    private boolean CREATIVE_ONLY;
+    private boolean FORCE_NEW_LOCATION;
 
     public void onClientTick(MinecraftClient client)
     {
-        if(!creativeOnly() || client.player.isCreative()) {
+        if(client.world == null) { return; }
+        if(!CREATIVE_ONLY || client.player.isCreative()) {
             int timer = client.itemUseCooldown;
             HitResult hover = client.crosshairTarget;
             if(hover != null && hover.getType() == HitResult.Type.BLOCK) {
@@ -38,7 +40,7 @@ public class BetterPlacement implements ClientModInitializer {
                 BlockPos pos = hit.getBlockPos();
                 if (timer > 0 && !pos.equals(lastTargetPos) && (lastTargetPos == null || !pos.equals(lastTargetPos.offset(lastTargetSide)))) {
                     client.itemUseCooldown = 0;
-                } else if (forceNewLoc() && timer == 0 && pos.equals(lastTargetPos) && side == lastTargetSide) {
+                } else if (FORCE_NEW_LOCATION && timer == 0 && pos.equals(lastTargetPos) && side == lastTargetSide) {
                     client.itemUseCooldown = 4;
                 }
                 lastTargetPos = pos.toImmutable();
@@ -69,14 +71,15 @@ public class BetterPlacement implements ClientModInitializer {
                 LOGGER.warn("Failed to save default config.", e);
             }
         }
-        _config = config;
+        CREATIVE_ONLY = Boolean.parseBoolean(config.getProperty("creativeOnly"));
+        FORCE_NEW_LOCATION = Boolean.parseBoolean(config.getProperty("forceNewLoc"));
+
+        System.out.println("LOADED: creativeOnly=" + CREATIVE_ONLY );
+        System.out.println("LOADED: forceNewLoc=" + FORCE_NEW_LOCATION );
     }
 
     private void loadDefaultConfig(Properties config) {
-        config.put("creativeOnly", false);
-        config.put("forceNewLoc", true);
+        config.setProperty("creativeOnly", Boolean.FALSE.toString());
+        config.setProperty("forceNewLoc", Boolean.TRUE.toString());
     }
-
-    private Boolean creativeOnly() { return (Boolean) _config.get("creativeOnly"); }
-    private Boolean forceNewLoc() { return (Boolean) _config.get("forceNewLoc"); }
 }
