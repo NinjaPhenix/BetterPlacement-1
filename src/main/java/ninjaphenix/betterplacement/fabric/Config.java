@@ -1,4 +1,4 @@
-package ninjaphenix.betterplacement;
+package ninjaphenix.betterplacement.fabric;
 
 import blue.endless.jankson.Comment;
 import blue.endless.jankson.annotation.SerializedName;

@@ -1,4 +1,4 @@
-package ninjaphenix.betterplacement;
+package ninjaphenix.betterplacement.fabric;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
@@ -7,7 +7,7 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import ninjaphenix.betterplacement.config.JanksonConfigParser;
+import ninjaphenix.betterplacement.fabric.config.JanksonConfigParser;
 import org.apache.logging.log4j.MarkerManager;
 
 public class BetterPlacement implements ClientModInitializer {
@@ -15,7 +15,7 @@ public class BetterPlacement implements ClientModInitializer {
     public static final BetterPlacement INSTANCE = new BetterPlacement();
     private BetterPlacement() {}
 
-    public static final String MOD_ID = "ninjaphenix_betterplacement";
+    public static final String MOD_ID = "betterplacementupdated";
     private BlockPos lastTargetPos;
     private Direction lastTargetSide;
     private Config _config;

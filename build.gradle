@@ -13,7 +13,7 @@ java {
 }
 
 minecraft {
-    accessWidener file('src/main/resources/ninjaphenix_betterplacement.accesswidener')
+    accessWidener file('src/main/resources/betterplacementupdated.accesswidener')
 }
 
 repositories {

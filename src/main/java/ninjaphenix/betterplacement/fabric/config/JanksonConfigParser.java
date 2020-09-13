@@ -1,4 +1,4 @@
-package ninjaphenix.betterplacement.config;
+package ninjaphenix.betterplacement.fabric.config;
 
 import blue.endless.jankson.Jankson;
 import blue.endless.jankson.JsonElement;
