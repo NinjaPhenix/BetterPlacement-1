@@ -1,0 +1,7 @@
+{
+    "category.betterplacementupdated": "BetterPlacementUpdated",
+    "key.betterplacementupdated.togglenewloc": "Toggle force new location",
+    
+    "betterplacementupdated.togglenewloc.true": "Force new location is §2ON",
+    "betterplacementupdated.togglenewloc.false": "Force new location is §4OFF"
+}

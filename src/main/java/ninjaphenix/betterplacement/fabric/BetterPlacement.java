@@ -1,14 +1,19 @@
 package ninjaphenix.betterplacement.fabric;
 
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.options.KeyBinding;
+import net.minecraft.client.resource.language.I18n;
+import net.minecraft.text.LiteralText;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.lwjgl.glfw.GLFW;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -27,10 +32,16 @@ public class BetterPlacement implements ClientModInitializer {
     private Direction lastTargetSide;
     private boolean CREATIVE_ONLY;
     private boolean FORCE_NEW_LOCATION;
+    private KeyBinding toggleForceKeyBinding;
 
     public void onClientTick(MinecraftClient client)
     {
         if(client.world == null) { return; }
+        if (toggleForceKeyBinding.wasPressed()) {
+            FORCE_NEW_LOCATION = !FORCE_NEW_LOCATION;
+            // TranslatableText doesn't honor § formatting => LiteralText(I18n.translate)
+            client.player.sendMessage(new LiteralText(I18n.translate(MOD_ID+".togglenewloc."+FORCE_NEW_LOCATION)), true);
+        }
         if(!CREATIVE_ONLY || client.player.isCreative()) {
             int timer = client.itemUseCooldown;
             HitResult hover = client.crosshairTarget;
@@ -76,6 +87,8 @@ public class BetterPlacement implements ClientModInitializer {
 
         System.out.println("LOADED: creativeOnly=" + CREATIVE_ONLY );
         System.out.println("LOADED: forceNewLoc=" + FORCE_NEW_LOCATION );
+        
+        KeyBindingHelper.registerKeyBinding(toggleForceKeyBinding = new KeyBinding("key."+MOD_ID+".togglenewloc", GLFW.GLFW_KEY_UNKNOWN, "category."+MOD_ID));
     }
 
     private void loadDefaultConfig(Properties config) {
