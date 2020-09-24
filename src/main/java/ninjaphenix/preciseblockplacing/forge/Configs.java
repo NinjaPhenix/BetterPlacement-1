@@ -1,4 +1,4 @@
-package ninjaphenix.betterplacement;
+package ninjaphenix.preciseblockplacing.forge;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -6,7 +6,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import org.apache.commons.lang3.tuple.Pair;
 
-@Mod.EventBusSubscriber(modid = BetterPlacement.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = PreciseBlockPlacing.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class Configs
 {
     public static final Configs.Client CLIENT;

@@ -21,10 +21,6 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 
-sourceSets {
-    main.resources.srcDirs += file('src/generated/resources')
-}
-
 repositories {
     /* For Unofficial MCP Mappings */ maven {
         url "https://www.dogforce-games.com/maven"
@@ -45,7 +41,7 @@ minecraft {
             property 'forge.logging.markers', 'SCAN'
             property 'forge.logging.console.level', 'debug'
             mods {
-                ninjaphenix_betterplacement {
+                preciseblockplacing {
                     source sourceSets.main
                 }
             }
@@ -56,19 +52,7 @@ minecraft {
             property 'forge.logging.markers', 'SCAN'
             property 'forge.logging.console.level', 'debug'
             mods {
-                ninjaphenix_betterplacement {
-                    source sourceSets.main
-                }
-            }
-        }
-
-        data {
-            workingDirectory project.file('run')
-            property 'forge.logging.markers', 'SCAN'
-            property 'forge.logging.console.level', 'debug'
-            args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
-            mods {
-                ninjaphenix_betterplacement {
+                preciseblockplacing {
                     source sourceSets.main
                 }
             }

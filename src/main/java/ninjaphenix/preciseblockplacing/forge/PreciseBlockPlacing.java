@@ -1,4 +1,4 @@
-package ninjaphenix.betterplacement;
+package ninjaphenix.preciseblockplacing.forge;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Direction;
@@ -12,17 +12,15 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
-@Mod(value = BetterPlacement.MOD_ID)
+@Mod(value = PreciseBlockPlacing.MOD_ID)
 @EventBusSubscriber(value = Dist.CLIENT, bus = EventBusSubscriber.Bus.FORGE)
-public class BetterPlacement {
+public class PreciseBlockPlacing {
 
-    public static final String MOD_ID = "ninjaphenix_betterplacement";
+    public static final String MOD_ID = "preciseblockplacing";
     private static BlockPos lastTargetPos;
     private static Direction lastTargetSide;
 
-    public BetterPlacement() {
-        Configs.register();
-    }
+    public PreciseBlockPlacing() { Configs.register(); }
 
     @SubscribeEvent
     public static void onClientTick(TickEvent.ClientTickEvent event) {
