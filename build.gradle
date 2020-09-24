@@ -4,7 +4,7 @@ plugins {
 }
 
 group = maven_group
-archivesBaseName = mod_id
+archivesBaseName = mod_id + "-fabric"
 version = "${mod_version}+${minecraft_version}"
 
 java {
@@ -13,7 +13,7 @@ java {
 }
 
 minecraft {
-    accessWidener file('src/main/resources/betterplacementupdated.accesswidener')
+    accessWidener file("src/main/resources/${mod_id}.accesswidener")
 }
 
 dependencies {

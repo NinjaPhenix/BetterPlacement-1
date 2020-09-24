@@ -1,13 +1,10 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "ninjaphenix.betterplacement.fabric.mixins",
+  "package": "ninjaphenix.preciseblockplacing.fabric.mixins",
   "compatibilityLevel": "JAVA_8",
-  "mixins": [
-  ],
-  "client": [
-    "ClientTick"
-  ],
+  "mixins": [ ],
+  "client": [ "ClientTick" ],
   "injectors": {
     "defaultRequire": 1
   }
