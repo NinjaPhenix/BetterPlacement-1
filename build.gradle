@@ -13,7 +13,7 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
 group = maven_group
-archivesBaseName = mod_id
+archivesBaseName = mod_id + "-forge"
 version = "${mod_version}+${minecraft_version}"
 
 java {
