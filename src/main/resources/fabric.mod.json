@@ -4,10 +4,7 @@
   "version": "${mod_version}",
   "name": "${mod_name}",
   "description": "Syncs block placement to cursor movement, allowing easier and faster building.",
-  "authors": [
-    "tterrag1098",
-	"NinjaPhenix"
-  ],
+  "authors": [ "tterrag1098",  "NinjaPhenix" ],
   "contact": {
     "homepage": "https://www.curseforge.com/minecraft/mc-mods/preciseblockplacing",
     "sources": "https://github.com/NinjaPhenix/PreciseBlockPlacing",
