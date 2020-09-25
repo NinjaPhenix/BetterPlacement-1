@@ -41,9 +41,7 @@ minecraft {
             property 'forge.logging.markers', 'SCAN'
             property 'forge.logging.console.level', 'debug'
             mods {
-                preciseblockplacing {
-                    source sourceSets.main
-                }
+                preciseblockplacing { source sourceSets.main }
             }
         }
 
@@ -52,9 +50,7 @@ minecraft {
             property 'forge.logging.markers', 'SCAN'
             property 'forge.logging.console.level', 'debug'
             mods {
-                preciseblockplacing {
-                    source sourceSets.main
-                }
+                preciseblockplacing { source sourceSets.main }
             }
         }
     }
@@ -101,16 +97,3 @@ jar {
 }
 
 jar.finalizedBy('reobfJar')
-
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            artifact jar
-        }
-    }
-    repositories {
-        maven {
-            url "file:///${project.projectDir}/mcmodsrepo"
-        }
-    }
-}

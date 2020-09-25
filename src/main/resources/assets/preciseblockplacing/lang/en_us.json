@@ -1,0 +1,7 @@
+{
+    "category.preciseblockplacing": "Precise Block Placing",
+    "key.preciseblockplacing.togglenewloc": "Toggle force new location",
+    
+    "preciseblockplacing.togglenewloc.true": "Force new location is §2ON",
+    "preciseblockplacing.togglenewloc.false": "Force new location is §4OFF"
+}
