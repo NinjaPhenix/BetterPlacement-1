@@ -9,21 +9,17 @@
 	"NinjaPhenix"
   ],
   "contact": {
-    "homepage": "https://www.curseforge.com/minecraft/mc-mods/better-placement-updated",
-    "sources": "https://github.com/NinjaPhenix/BetterPlacement",
-	"issues": "https://github.com/NinjaPhenix/BetterPlacement/issues"
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/preciseblockplacing",
+    "sources": "https://github.com/NinjaPhenix/PreciseBlockPlacing",
+	"issues": "https://github.com/NinjaPhenix/PreciseBlockPlacing/issues"
   },
   "license": "MPL-2.0",
   "environment": "client",
   "entrypoints": {
-    "client": [
-      "ninjaphenix.betterplacement.fabric.BetterPlacement::INSTANCE"
-    ]
+    "client": [ "ninjaphenix.preciseblockplacing.fabric.PreciseBlockPlacing::INSTANCE" ]
   },
-  "mixins": [
-    "betterplacementupdated.mixins.json"
-  ],
-  "accessWidener": "betterplacementupdated.accesswidener",
+  "mixins": [ "preciseblockplacing.mixins.json" ],
+  "accessWidener": "preciseblockplacing.accesswidener",
   "depends": {
     "fabricloader": ">=${loader_version}",
     "minecraft": "~${minecraft_version}"

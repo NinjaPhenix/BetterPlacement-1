@@ -1,4 +1,4 @@
-package ninjaphenix.betterplacement.fabric;
+package ninjaphenix.preciseblockplacing.fabric;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
@@ -21,12 +21,12 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.Properties;
 
-public class BetterPlacement implements ClientModInitializer {
+public class PreciseBlockPlacing implements ClientModInitializer {
 
-    public static final BetterPlacement INSTANCE = new BetterPlacement();
-    private BetterPlacement() {}
+    public static final PreciseBlockPlacing INSTANCE = new PreciseBlockPlacing();
+    private PreciseBlockPlacing() {}
 
-    public static final String MOD_ID = "betterplacementupdated";
+    public static final String MOD_ID = "preciseblockplacing";
     private static final Logger LOGGER = LogManager.getLogger(MOD_ID);
     private BlockPos lastTargetPos;
     private Direction lastTargetSide;
@@ -36,16 +36,16 @@ public class BetterPlacement implements ClientModInitializer {
 
     public void onClientTick(MinecraftClient client)
     {
-        if(client.world == null) { return; }
+        if (client.world == null) { return; }
         if (toggleForceKeyBinding.wasPressed()) {
             FORCE_NEW_LOCATION = !FORCE_NEW_LOCATION;
             // TranslatableText doesn't honor § formatting => LiteralText(I18n.translate)
-            client.player.sendMessage(new LiteralText(I18n.translate(MOD_ID+".togglenewloc."+FORCE_NEW_LOCATION)), true);
+            client.player.sendMessage(new LiteralText(I18n.translate(MOD_ID + ".togglenewloc." + FORCE_NEW_LOCATION)), true);
         }
-        if(!CREATIVE_ONLY || client.player.isCreative()) {
+        if (!CREATIVE_ONLY || client.player.isCreative()) {
             int timer = client.itemUseCooldown;
             HitResult hover = client.crosshairTarget;
-            if(hover != null && hover.getType() == HitResult.Type.BLOCK) {
+            if (hover != null && hover.getType() == HitResult.Type.BLOCK) {
                 BlockHitResult hit = (BlockHitResult) hover;
                 Direction side = hit.getSide();
                 BlockPos pos = hit.getBlockPos();
@@ -63,7 +63,7 @@ public class BetterPlacement implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         final Properties config = new Properties();
-        Path configPath = FabricLoader.getInstance().getConfigDir().resolve(MOD_ID+".properties");
+        Path configPath = FabricLoader.getInstance().getConfigDir().resolve(MOD_ID + ".properties");
         if(Files.exists(configPath)) {
             try {
                 config.load(Files.newInputStream(configPath, StandardOpenOption.READ));
@@ -75,7 +75,7 @@ public class BetterPlacement implements ClientModInitializer {
             loadDefaultConfig(config);
             try {
                 config.store(Files.newOutputStream(configPath, StandardOpenOption.CREATE),
-                        "Better Placement Config\n" +
+                        "Precise Block Placing Config\n" +
                         "creativeOnly - If true, the modifications will only apply in creative mode.\n" +
                         "forceNewLoc - When true, a held right click will never place two blocks in a row, the player must move the cursor to a new location.");
             } catch (IOException e) {
@@ -84,11 +84,8 @@ public class BetterPlacement implements ClientModInitializer {
         }
         CREATIVE_ONLY = Boolean.parseBoolean(config.getProperty("creativeOnly"));
         FORCE_NEW_LOCATION = Boolean.parseBoolean(config.getProperty("forceNewLoc"));
-
-        System.out.println("LOADED: creativeOnly=" + CREATIVE_ONLY );
-        System.out.println("LOADED: forceNewLoc=" + FORCE_NEW_LOCATION );
         
-        KeyBindingHelper.registerKeyBinding(toggleForceKeyBinding = new KeyBinding("key."+MOD_ID+".togglenewloc", GLFW.GLFW_KEY_UNKNOWN, "category."+MOD_ID));
+        KeyBindingHelper.registerKeyBinding(toggleForceKeyBinding = new KeyBinding("key." + MOD_ID + ".togglenewloc", GLFW.GLFW_KEY_UNKNOWN, "category." + MOD_ID));
     }
 
     private void loadDefaultConfig(Properties config) {

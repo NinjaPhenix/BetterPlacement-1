@@ -4,7 +4,7 @@ plugins {
 }
 
 group = maven_group
-archivesBaseName = mod_id
+archivesBaseName = mod_id + "-fabric"
 version = "${mod_version}+${minecraft_version}"
 
 java {
@@ -12,9 +12,7 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 
-minecraft {
-    accessWidener file('src/main/resources/betterplacementupdated.accesswidener')
-}
+minecraft { accessWidener file("src/main/resources/${mod_id}.accesswidener") }
 
 dependencies {
     minecraft "com.mojang:minecraft:${minecraft_version}"
@@ -43,37 +41,9 @@ processResources {
         )
     }
 
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'fabric.mod.json'
-    }
+    from(sourceSets.main.resources.srcDirs) { exclude 'fabric.mod.json' }
 }
 
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
-}
+tasks.withType(JavaCompile) { options.encoding = 'UTF-8' }
 
-task sourcesJar(type: Jar, dependsOn: classes) {
-    classifier = 'sources'
-    from sourceSets.main.allSource
-}
-
-jar {
-    from('LICENSE')
-}
-
-// configure the maven publication
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            artifact(remapJar) {
-                builtBy remapJar
-            }
-            artifact(sourcesJar) {
-                builtBy remapSourcesJar
-            }
-        }
-    }
-    repositories {
-        // mavenLocal()
-    }
-}
+jar { from('LICENSE') }
