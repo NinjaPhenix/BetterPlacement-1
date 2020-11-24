@@ -39,9 +39,7 @@ public class PreciseBlockPlacing implements ClientModInitializer {
     private KeyBinding toggleForceKeyBinding;
 
     public void onClientTick(MinecraftClient client) {
-        if (client.world == null) {
-            return;
-        }
+        if (client.world == null) { return; }
         if (toggleForceKeyBinding.wasPressed()) {
             FORCE_NEW_LOCATION = !FORCE_NEW_LOCATION;
             // TranslatableText doesn't honor § formatting => LiteralText(I18n.translate)
