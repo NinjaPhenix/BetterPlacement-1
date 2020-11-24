@@ -55,12 +55,12 @@ public class PreciseBlockPlacing implements ClientModInitializer {
                 Direction side = hit.getSide();
                 BlockPos pos = hit.getBlockPos();
                 Vec3d playerPos = client.player.getPos();
-                BlockPos playerBlockPos = client.player.getBlockPos();
                 if (timer > 0) {
                     if (!pos.equals(lastTargetPos) && (lastTargetPos == null || !pos.equals(lastTargetPos.offset(lastTargetSide)))) {
                         client.itemUseCooldown = 0;
                     }
                 } else {
+                    BlockPos playerBlockPos = client.player.getBlockPos();
                     if (side == Direction.UP && !playerPos.equals(lastPlayerPos) && playerBlockPos.getX() == pos.getX() && playerBlockPos.getZ() == pos.getZ()) {
                         client.itemUseCooldown = 0;
                     } else {
