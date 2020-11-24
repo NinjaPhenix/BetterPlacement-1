@@ -41,6 +41,7 @@ public class PreciseBlockPlacing {
         if(event.phase == TickEvent.Phase.START)
         {
             Minecraft client = Minecraft.getInstance();
+            if (client.player == null) { return; }
             if (toggleForceKeyBinding.isPressed()) {
                 final boolean forceNewLoc = !Configs.CLIENT.forceNewLoc.get();
                 Configs.CLIENT.forceNewLoc.set(forceNewLoc);
