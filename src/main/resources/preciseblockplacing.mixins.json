@@ -4,7 +4,7 @@
   "package": "ninjaphenix.preciseblockplacing.fabric.mixins",
   "compatibilityLevel": "JAVA_8",
   "mixins": [ ],
-  "client": [ "ClientTick" ],
+  "client": [ "ClientTick", "ShutdownHook" ],
   "injectors": {
     "defaultRequire": 1
   }
