@@ -4,10 +4,10 @@ import net.minecraft.client.settings.KeyBinding;
 
 import java.util.function.Consumer;
 
-public class ToggleKeyMapping extends KeyBinding {
+class ToggleKeyMapping extends KeyBinding {
     private final Consumer<Boolean> stateChangeHandler;
 
-    public ToggleKeyMapping(String name, int key, String category, boolean initialState, Consumer<Boolean> onPress) {
+    ToggleKeyMapping(String name, int key, String category, boolean initialState, Consumer<Boolean> onPress) {
         super(name, key, category);
         super.setPressed(initialState);
         stateChangeHandler = onPress;

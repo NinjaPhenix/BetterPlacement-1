@@ -5,7 +5,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '4.0.+', changing: true
     }
 }
 apply plugin: 'net.minecraftforge.gradle'
@@ -39,7 +39,7 @@ minecraft {
         client {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'SCAN'
-            property 'forge.logging.console.level', 'debug'
+            //property 'forge.logging.console.level', 'debug'
             mods {
                 preciseblockplacing { source sourceSets.main }
             }
@@ -48,7 +48,7 @@ minecraft {
         server {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'SCAN'
-            property 'forge.logging.console.level', 'debug'
+            //property 'forge.logging.console.level', 'debug'
             mods {
                 preciseblockplacing { source sourceSets.main }
             }

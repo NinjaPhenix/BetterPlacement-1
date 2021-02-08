@@ -9,8 +9,8 @@ import org.apache.commons.lang3.tuple.Pair;
 @Mod.EventBusSubscriber(modid = PreciseBlockPlacing.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class Configs
 {
-    public static final Configs.Client CLIENT;
-    public static final ForgeConfigSpec CLIENT_SPEC;
+    static final Configs.Client CLIENT;
+    static final ForgeConfigSpec CLIENT_SPEC;
 
     static
     {
@@ -19,13 +19,13 @@ public class Configs
         CLIENT = specPair.getLeft();
     }
 
-    public static void register() { ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CLIENT_SPEC); }
+    static void register() { ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CLIENT_SPEC); }
 
-    public static class Client
+    static class Client
     {
-        public final ForgeConfigSpec.BooleanValue creativeOnly;
-        public final ForgeConfigSpec.BooleanValue forceNewLocation;
-        public final ForgeConfigSpec.BooleanValue enabled;
+        final ForgeConfigSpec.BooleanValue creativeOnly;
+        final ForgeConfigSpec.BooleanValue forceNewLocation;
+        final ForgeConfigSpec.BooleanValue enabled;
 
         Client(final ForgeConfigSpec.Builder builder)
         {
