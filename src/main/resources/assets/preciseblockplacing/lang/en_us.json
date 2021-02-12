@@ -1,7 +1,7 @@
 {
     "category.preciseblockplacing": "Precise Block Placing",
     "key.preciseblockplacing.toggle_new_location": "Toggle force new location",
-    "key.preciseblockplacing.enabled": "Toggle force new location",
+    "key.preciseblockplacing.enabled": "Toggle mod enabled",
 
     "preciseblockplacing.toggle_new_location.true": "Force new location is §2ON",
     "preciseblockplacing.toggle_new_location.false": "Force new location is §4OFF",
