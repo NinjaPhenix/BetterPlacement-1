@@ -12,7 +12,7 @@ import java.io.IOException;
 @Mixin(Minecraft.class)
 public class ShutdownHook {
 
-    @Inject(method = "Lnet/minecraft/client/Minecraft;run()V", at = @At("TAIL"))
+    @Inject(method = "run()V", at = @At("TAIL"))
     private void normalShutdown(CallbackInfo info) {
         try {
             PreciseBlockPlacing.INSTANCE.saveCurrentConfig();
@@ -21,7 +21,7 @@ public class ShutdownHook {
         }
     }
 
-    @Inject(method = "Lnet/minecraft/client/Minecraft;emergencySave()V", at = @At("TAIL"))
+    @Inject(method = "emergencySave()V", at = @At("TAIL"))
     private void emergencyShutdown(CallbackInfo info) {
         try {
             PreciseBlockPlacing.INSTANCE.saveCurrentConfig();

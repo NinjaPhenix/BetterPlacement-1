@@ -1,13 +1,16 @@
 package ninjaphenix.preciseblockplacing.fabric;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.fabricmc.fabric.api.client.keybinding.FabricKeyBinding;
+import net.fabricmc.fabric.api.client.keybinding.KeyBindingRegistry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.TextComponent;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
@@ -52,7 +55,7 @@ public class PreciseBlockPlacing implements ClientModInitializer {
                         client.rightClickDelay = 0;
                     }
                 } else {
-                    BlockPos playerBlockPos = client.player.blockPosition();
+                    BlockPos playerBlockPos = new BlockPos(client.player.position());
                     if (side == Direction.UP && !playerPos.equals(lastPlayerPos) && playerBlockPos.getX() == pos.getX() && playerBlockPos.getZ() == pos.getZ()) {
                         client.rightClickDelay = 0;
                     } else if (FORCE_NEW_LOCATION && pos.equals(lastTargetPos) && side == lastTargetSide) {
@@ -114,12 +117,13 @@ public class PreciseBlockPlacing implements ClientModInitializer {
                 LOGGER.warn("Failed to save config, new config keys will be missing.", e);
             }
         }
-        KeyBindingHelper.registerKeyBinding(new ToggleKeyMapping("key." + MOD_ID + ".toggle_new_location", GLFW.GLFW_KEY_UNKNOWN, "category." + MOD_ID, FORCE_NEW_LOCATION, (value) -> {
+        KeyBindingRegistry.INSTANCE.addCategory("category." + MOD_ID);
+        KeyBindingRegistry.INSTANCE.register(new ToggleKeyMapping(new ResourceLocation(MOD_ID, "toggle_new_location"), InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, "category." + MOD_ID, FORCE_NEW_LOCATION, (value) -> {
             FORCE_NEW_LOCATION = value;
             // TranslatableText doesn't honor § formatting => LiteralText(I18n.translate)
             Minecraft.getInstance().player.displayClientMessage(new TextComponent(I18n.get(MOD_ID + ".toggle_new_location." + FORCE_NEW_LOCATION)), true);
         }));
-        KeyBindingHelper.registerKeyBinding(new ToggleKeyMapping("key." + MOD_ID + ".toggle_enabled", GLFW.GLFW_KEY_UNKNOWN, "category." + MOD_ID, ENABLED, (value) -> {
+        KeyBindingRegistry.INSTANCE.register(new ToggleKeyMapping(new ResourceLocation(MOD_ID, "enabled"), InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, "category." + MOD_ID, ENABLED, (value) -> {
             ENABLED = value;
             // TranslatableText doesn't honor § formatting => LiteralText(I18n.translate)
             Minecraft.getInstance().player.displayClientMessage(new TextComponent(I18n.get(MOD_ID + ".enabled." + ENABLED)), true);
