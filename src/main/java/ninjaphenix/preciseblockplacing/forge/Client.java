@@ -7,7 +7,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -22,7 +22,7 @@ public final class Client {
     private static Client instance;
     private BlockPos lastTargetPos;
     private Direction lastTargetSide;
-    private Vector3d lastPlayerPos;
+    private Vec3d lastPlayerPos;
     private boolean enabled = true;
     private boolean forceNewLocation = true;
     private boolean creativeOnly = false;
@@ -61,7 +61,7 @@ public final class Client {
             // TranslatableText doesn't honor § formatting => LiteralText(I18n.translate)
             Minecraft.getInstance().player.sendStatusMessage(new StringTextComponent(I18n.format("preciseblockplacing.toggle_new_location." + forceNewLocation)), true);
         }));
-        ClientRegistry.registerKeyBinding(new ToggleKeyMapping("key.preciseblockplacing.toggle_enabled", GLFW.GLFW_KEY_UNKNOWN, "category.preciseblockplacing", enabled, (value) -> {
+        ClientRegistry.registerKeyBinding(new ToggleKeyMapping("key.preciseblockplacing.enabled", GLFW.GLFW_KEY_UNKNOWN, "category.preciseblockplacing", enabled, (value) -> {
             enabled = value;
             // TranslatableText doesn't honor § formatting => LiteralText(I18n.translate)
             Minecraft.getInstance().player.sendStatusMessage(new StringTextComponent(I18n.format("preciseblockplacing.enabled." + enabled)), true);
@@ -91,7 +91,7 @@ public final class Client {
                     BlockRayTraceResult hit = (BlockRayTraceResult) hover;
                     Direction face = hit.getFace();
                     BlockPos pos = hit.getPos();
-                    Vector3d playerPos = client.player.getPositionVec();
+                    Vec3d playerPos = client.player.getPositionVec();
                     if (timer > 0) {
                         if (!pos.equals(lastTargetPos) && (lastTargetPos == null || !pos.equals(lastTargetPos.offset(lastTargetSide)))) {
                             client.rightClickDelayTimer = 0;
