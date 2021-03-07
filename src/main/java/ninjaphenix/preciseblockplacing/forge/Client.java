@@ -12,6 +12,7 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -40,18 +41,28 @@ public final class Client {
 
     void initialize() {
         Configs.register();
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onClientSetup);
+        IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
+        modBus.addListener(this::onClientSetup);
+        modBus.addListener(this::configLoad);
+        modBus.addListener(this::configReload);
         MinecraftForge.EVENT_BUS.addListener(this::onClientLogout);
         MinecraftForge.EVENT_BUS.addListener(this::onClientTick);
     }
 
     // todo: unused?
-    private void configLoad(ModConfig.ModConfigEvent event) {
+    private void configLoad(ModConfig.Loading event) {
         if (PreciseBlockPlacing.MOD_ID.equals(event.getConfig().getModId()) && event.getConfig().getType() == ModConfig.Type.CLIENT) {
-            CommentedConfig config = event.getConfig().getConfigData();
-            enabled = config.get("enabled");
-            forceNewLocation = config.get("forceNewLoc");
-            creativeOnly = config.get("creativeOnly");
+            enabled = Configs.CLIENT.enabled.get();
+            forceNewLocation = Configs.CLIENT.forceNewLocation.get();
+            creativeOnly = Configs.CLIENT.creativeOnly.get();
+        }
+    }
+
+    private void configReload(ModConfig.Loading event) {
+        if (PreciseBlockPlacing.MOD_ID.equals(event.getConfig().getModId()) && event.getConfig().getType() == ModConfig.Type.CLIENT) {
+            enabled = Configs.CLIENT.enabled.get();
+            forceNewLocation = Configs.CLIENT.forceNewLocation.get();
+            creativeOnly = Configs.CLIENT.creativeOnly.get();
         }
     }
 
