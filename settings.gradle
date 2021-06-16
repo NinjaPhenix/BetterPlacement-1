@@ -14,6 +14,6 @@ pluginManagement {
 }
 
 include('fabric')
-include('forge')
+//include('forge')
 
 rootProject.name = 'preciseblockplacing'

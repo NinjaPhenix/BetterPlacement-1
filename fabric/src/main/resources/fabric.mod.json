@@ -25,7 +25,8 @@
   ],
   "accessWidener": "preciseblockplacing.accessWidener",
   "depends": {
+    "fabric": ">=0.34.0",
     "fabricloader": ">=0.7.4",
-    "minecraft": "~1.16"
+    "minecraft": "~1.17"
   }
 }

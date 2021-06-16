@@ -37,23 +37,13 @@ subprojects {
         useFabricMixin = true
     }
 
-    repositories {
-        mavenLocal()
-    }
-
     dependencies {
-        annotationProcessor('com.github.bsideup.jabel:jabel-javac-plugin:0.4.0')
-        compileOnly('com.github.bsideup.jabel:jabel-javac-plugin:0.4.0')
-
         minecraft("com.mojang:minecraft:${rootProject.minecraft_version}")
         mappings loom.officialMojangMappings()
     }
 
     tasks.withType(JavaCompile).configureEach {
         options.encoding = 'UTF-8'
-        if (System.getenv('I_HATE_INTELLIJ_AND_GRADLE')) {
-            options.release.set(rootProject.minecraft_java_version as int)
-        }
     }
 
     remapJar {
