@@ -1,10 +1,19 @@
 pluginManagement {
     repositories {
-        jcenter()
+        maven { url 'https://maven.architectury.dev/' }
+        maven { url 'https://maven.fabricmc.net/' }
         maven {
-            name = 'Fabric'
-            url = 'https://maven.fabricmc.net/'
+            url 'https://maven.minecraftforge.net/'
+            content {
+                excludeModule('org.eclipse.jdt', 'org.eclipse.jdt.core')
+                excludeModule('org.eclipse.platform', 'org.eclipse.equinox.common')
+            }
         }
         gradlePluginPortal()
     }
 }
+
+include('fabric')
+include('forge')
+
+rootProject.name = 'preciseblockplacing'

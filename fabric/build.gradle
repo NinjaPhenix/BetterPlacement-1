@@ -1,0 +1,34 @@
+tasks.withType(JavaExec).configureEach {
+    javaLauncher.set(javaToolchains.launcherFor {
+        it.languageVersion = JavaLanguageVersion.of(rootProject.minecraft_java_version)
+    })
+}
+
+loom {
+    accessWidener = file('src/main/resources/preciseblockplacing.accessWidener')
+    runs {
+        client {
+            vmArgs('-XX:+IgnoreUnrecognizedVMOptions')
+        }
+
+        server {
+            vmArgs('-XX:+IgnoreUnrecognizedVMOptions')
+        }
+    }
+}
+
+dependencies {
+    modImplementation("net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}")
+    modApi("net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}")
+}
+
+processResources {
+    def props = ['mod_version': mod_version]
+
+    inputs.properties props
+
+    filesMatching('fabric.mod.json') {
+        expand props
+    }
+    duplicatesStrategy(DuplicatesStrategy.WARN)
+}

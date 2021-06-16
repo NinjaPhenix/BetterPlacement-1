@@ -1,32 +1,6 @@
-/download
-/eclipseBin
-
-## gradle
-/.gradle
-/build
-
-## ForgeGradle
-/run
-/*.launch
-
-## eclipse
-/eclipse
-/.settings
-/.metadata
-/.classpath
-/.project
-/bin
-
-## intellij
-/out
-/.idea
-/*.iml
-/*.ipr
-/*.iws
-/atlassian-ide-plugin.xml
-
-## gedit
-*~
-
-## Loom
-/logs/latest.log
+.architectury-transformer/
+.gradle/
+.idea/
+.vscode/
+build/
+run/

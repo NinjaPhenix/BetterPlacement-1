@@ -1,0 +1,25 @@
+modLoader="javafml"
+loaderVersion="[32,)"
+license="Mozilla Public License Version 2.0"
+issueTrackerURL="https://github.com/NinjaPhenix/PreciseBlockPlacing/issues/"
+[[mods]]
+modId="preciseblockplacing"
+version="${mod_version}"
+displayName="PreciseBlockPlacing"
+displayURL="https://www.curseforge.com/minecraft/mc-mods/preciseblockplacing/"
+authors="tterrag1098, NinjaPhenix"
+description='''
+Syncs block placement to cursor movement, allowing easier and faster building.
+'''
+[[dependencies.preciseblockplacing]]
+    modId="forge"
+    mandatory=true
+    versionRange="[32,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.preciseblockplacing]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.16.1,)"
+    ordering="NONE"
+    side="BOTH"

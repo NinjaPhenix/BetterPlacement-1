@@ -23,17 +23,15 @@ import java.util.Properties;
 
 public class PreciseBlockPlacing implements ClientModInitializer {
     public static final PreciseBlockPlacing INSTANCE = new PreciseBlockPlacing();
-
-    private PreciseBlockPlacing() {
-    }
-
     private final String MOD_ID = "preciseblockplacing";
-    private final Path CONFIG_PATH = FabricLoader.getInstance().getConfigDir().resolve(MOD_ID + ".properties");
     public final Logger LOGGER = LogManager.getLogger(MOD_ID);
+    private final Path CONFIG_PATH = FabricLoader.getInstance().getConfigDir().resolve(MOD_ID + ".properties");
     private BlockPos lastTargetPos;
     private Vec3 lastPlayerPos;
     private Direction lastTargetSide;
     private boolean CREATIVE_ONLY, FORCE_NEW_LOCATION, ENABLED;
+    private PreciseBlockPlacing() {
+    }
 
     public void onClientTick(Minecraft client) {
         if (!ENABLED || client.level == null || client.player == null) {
@@ -69,7 +67,7 @@ public class PreciseBlockPlacing implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         Properties config = new Properties();
-        final Properties defaultConfig = loadDefaultConfig();
+        Properties defaultConfig = this.loadDefaultConfig();
         if (Files.exists(CONFIG_PATH)) {
             try {
                 config.load(Files.newInputStream(CONFIG_PATH, StandardOpenOption.READ));
@@ -80,7 +78,7 @@ public class PreciseBlockPlacing implements ClientModInitializer {
         } else {
             config = defaultConfig;
             try {
-                saveConfig(config);
+                this.saveConfig(config);
             } catch (IOException e) {
                 LOGGER.warn("Failed to save default config.", e);
             }
@@ -109,7 +107,7 @@ public class PreciseBlockPlacing implements ClientModInitializer {
         ENABLED = Boolean.parseBoolean(enabled);
         if (needsSaving) {
             try {
-                saveConfig(config);
+                this.saveConfig(config);
             } catch (IOException e) {
                 LOGGER.warn("Failed to save config, new config keys will be missing.", e);
             }
@@ -122,7 +120,7 @@ public class PreciseBlockPlacing implements ClientModInitializer {
         KeyBindingHelper.registerKeyBinding(new ToggleKeyMapping("key." + MOD_ID + ".toggle_enabled", GLFW.GLFW_KEY_UNKNOWN, "category." + MOD_ID, ENABLED, (value) -> {
             ENABLED = value;
             // TranslatableText doesn't honor § formatting => LiteralText(I18n.translate)
-            Minecraft.getInstance().player.displayClientMessage(new TextComponent(I18n.get(MOD_ID + ".enabled." + ENABLED)), true);
+            Minecraft.getInstance().player.displayClientMessage(new TextComponent(I18n.get(MOD_ID + ".toggle_enabled." + ENABLED)), true);
         }));
     }
 
@@ -147,6 +145,6 @@ public class PreciseBlockPlacing implements ClientModInitializer {
         config.setProperty("creativeOnly", String.valueOf(CREATIVE_ONLY));
         config.setProperty("forceNewLoc", String.valueOf(FORCE_NEW_LOCATION));
         config.setProperty("enabled", String.valueOf(ENABLED));
-        saveConfig(config);
+        this.saveConfig(config);
     }
 }

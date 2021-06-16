@@ -1,0 +1,30 @@
+[*]
+charset                     = utf-8
+end_of_line                 = lf
+indent_size                 = 4
+indent_style                = space
+insert_final_newline        = true
+max_line_length             = 120
+tab_width                   = 4
+ij_continuation_indent_size = 8
+ij_formatter_off_tag        = @formatter:off
+ij_formatter_on_tag         = @formatter:on
+ij_formatter_tags_enabled   = true
+
+[*.java]
+ij_java_align_multiline_chained_methods     = true
+ij_java_use_single_class_imports            = true
+ij_java_class_count_to_use_import_on_demand = 999
+ij_java_names_count_to_use_import_on_demand = 999
+ij_java_packages_to_use_import_on_demand    = unset
+
+[*.properties]
+ij_properties_align_group_field_declarations    = true
+ij_properties_key_value_delimiter               = equals
+ij_properties_spaces_around_key_value_delimiter = true
+
+[*.json]
+indent_size = 2
+
+[.editorconfig]
+ij_editorconfig_align_group_field_declarations = true

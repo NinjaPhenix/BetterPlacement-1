@@ -1,0 +1,27 @@
+loom {
+    runs {
+        client {
+            vmArgs('--add-exports=java.base/sun.security.util=ALL-UNNAMED',
+                    '--add-opens=java.base/java.util.jar=ALL-UNNAMED')
+        }
+
+        server {
+            vmArgs('--add-exports=java.base/sun.security.util=ALL-UNNAMED',
+                    '--add-opens=java.base/java.util.jar=ALL-UNNAMED')
+        }
+    }
+}
+
+dependencies {
+    forge("net.minecraftforge:forge:${rootProject.minecraft_version}-${rootProject.forge_version}")
+}
+
+processResources {
+    def props = ['mod_version': project.mod_version]
+    inputs.properties props
+
+    filesMatching('META-INF/mods.toml') {
+        expand props
+    }
+    duplicatesStrategy(DuplicatesStrategy.WARN)
+}
